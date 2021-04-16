@@ -3,7 +3,7 @@ var router = express.Router();
 router.use(express.json());
 
 router.get('/', function (req, res) {
-    res.cookie('firstName', 'Curtis').send('Cookie Set');
+    res.send(req.headers.cookie)
 })
 
 module.exports = router;
