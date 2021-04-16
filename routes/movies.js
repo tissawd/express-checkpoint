@@ -9,7 +9,15 @@ router.get('/', function (req, res, next){
      .from('movies')
      .select('*')
      .where({title: req.query.title})
-     .then(movies => res.json(movies));
+     .then(movies => {
+       if (movies.length === 0){
+          var err = new Error('The title you requested does not exist. Please try again.');
+          err.status = 404;
+          res.status(err.status).send(err.message)
+       } else {
+        res.json(movies)
+       }
+     });
     } else {
     knex
     .from('movies')
@@ -43,4 +51,9 @@ router.delete('/:movieId', function (req, res, next) {
 });
 
 
+
+
 module.exports = router;
+
+
+
