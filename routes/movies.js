@@ -31,7 +31,15 @@ router.get('/:movieId', function (req, res, next){
     .from('movies')
     .select('*')
     .where('id', req.params.movieId)
-    .then(movies => res.json(movies))
+    .then(movies => {
+        if(movies.length === 0) {
+            var err = new Error('The movie you requested has no results. Please search for another movie.')
+            err.status = 404;
+            res.status(err.status).send(err.message)
+        } else {
+       res.json(movies)
+    }
+  })
 });
 
 router.post('/', function (req, res, next) {
