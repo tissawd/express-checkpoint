@@ -35,6 +35,12 @@ router.post('/', function (req, res, next) {
    .catch(err => console.log(err));
 });
 
+router.delete('/:movieId', function (req, res, next) {
+    knex('movies')
+    .where({id: (req.params.movieId)})
+    .del()
+    .then(results => res.send(`Your movie has been deleted MovieID: ${req.params.movieId}`))
+});
 
 
 module.exports = router;
