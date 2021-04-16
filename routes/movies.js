@@ -17,6 +17,14 @@ router.get('/', function (req, res, next){
     }
 });
 
+router.get('/:movieId', function (req, res, next){
+    knex
+    .from('movies')
+    .select('*')
+    .where('id', req.params.movieId)
+    .then(movies => res.json(movies))
+});
+
 
 
 module.exports = router;
